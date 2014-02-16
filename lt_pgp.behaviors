@@ -1,0 +1,7 @@
+{:+ {:app [(:lt.objs.plugins/load-js ["lib/openpgp.min.js" "lt_pgp_compiled.js"] )]
+     :lt-pgp [:lt.plugins.lt-pgp/on-close-destroy]
+     :editor.pgp [:lt.plugins.lt-pgp/encrypt-on-save]
+     :opener [:lt.plugins.lt-pgp/decrypt-on-init]
+     :files [:lt.objs.opener/save-failed
+             (:lt.objs.files/file-types
+              [{:name "PGP Encrypted File" :exts [:pgp :gpg] :mime "pgp" :tags [:editor.pgp]}])]}}
