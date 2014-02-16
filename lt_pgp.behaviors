@@ -1,7 +1,12 @@
-{:+ {:app [(:lt.objs.plugins/load-js ["lib/openpgp.min.js" "lt_pgp_compiled.js"] )]
+{:+ {:app [(:lt.objs.plugins/load-js ["lib/openpgp.min.js"
+                                      "lib/jquery-2.1.0.min.js"
+                                      "lib/select2.min.js"
+                                      "lt_pgp_compiled.js"] )
+           (:lt.objs.plugins/load-css "css/select2.css")
+           (:lt.objs.plugins/load-css "css/popup.css")]
      :lt-pgp [:lt.plugins.lt-pgp/on-close-destroy]
      :editor.pgp [:lt.plugins.lt-pgp/encrypt-on-save]
      :opener [:lt.plugins.lt-pgp/decrypt-on-init]
      :files [:lt.objs.opener/save-failed
              (:lt.objs.files/file-types
-              [{:name "PGP Encrypted File" :exts [:pgp :gpg] :mime "pgp" :tags [:editor.pgp]}])]}}
+              [{:name "PGP Encrypted File" :exts [:pgp :gpg :asc] :mime "pgp" :tags [:editor.pgp]}])]}}
