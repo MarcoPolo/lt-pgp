@@ -2,6 +2,10 @@
 This plugin allows you to edit and create PGP encrypted files seamlessly.
 
 # How to use
+*TL;DR*
+
+This plugin can read encrypted ASCII armored files.
+You need to import which keys you want to use, then you can start seamlessly using encryption!
 
 ## Importing keys
 Right now this plugin doesn't use your local GPG key database (on the plus side this means you don't need GPG installed to use this). So to add keys to the plugin's keyring use the command `PGP: Add key to keyring`. You'll need to paste in your ASCII armored key. Use `gpg --export -a NAME` to export your public key, and `gpg  --export-secret-keys` to export your private key.
