@@ -23,3 +23,8 @@ When you open a `.gpg`, `.pgp`, or `.asc` file,
 the pgp will check if it has the keys necessary to decrypt it. If it can decrypt the file, you'll see the decrypted contents in the editor. If your private key is password protected it will prompt you for your decryption password, before decrypting.
 
 You can save the file after any changes, and the file will be re-encrypted with the new content.
+
+# Caveats
+When selecting which keys to use for encryption, you can't enter or tab a selection while you are typing. You must click it. I think this has something to do with Light Table's popups, but I'm not sure.
+
+This plugin changes popup's z-index from something like 1000000000 to 3000 so that it can work with [select2](http://ivaynberg.github.io/select2/)
