@@ -1,0 +1,2 @@
+{:+ {:popup.input.select2 {"tab" [:passthrough]
+                           "enter" [:passthrough]}}}

@@ -3,6 +3,7 @@
             [lt.objs.tabs :as tabs]
             [lt.objs.popup :as popup]
             [lt.objs.editor :as editor]
+            [lt.objs.context :as ctx]
             [lt.util.dom :as dom]
             [lt.objs.command :as cmd])
   (:require-macros [lt.macros :refer [defui behavior]]))
@@ -43,20 +44,11 @@
                             keys (find-keys-with-infos (.-keys keyring) key-infos)
                             ed  (first (get-in @lt-pgp-obj [:encrypt-queue]))
                             key-ids (mapcat #(.getKeyIds %) keys)]
+                        (ctx/out! :popup.input.select2)
                         (swap! lt-pgp-obj assoc-in [:saving] false)
                         (object/update! lt-pgp-obj [:encrypt-queue] rest)
-                        (def j ed)
-                        (def l key-ids)
                         (swap! ed assoc-in [:lt-pgp :key-ids] key-ids)
                         (object/raise ed :save))))
-
-;(@lt-pgp-obj :encrypt-queue)
-;(get-in (deref js/e) [:lt-pgp])
-;(.getValue (editor/->cm-ed (ffirst (get-in @lt-pgp-obj [:encrypt-queue]))))
-;(.getValue (editor/->cm-ed @j))
-;(swap! j assoc-in [:lt-pgp :key-ids] '())
-;(def f @j)
-;(get-in @j [:lt-pgp :key-ids])
 
 (behavior ::prompt-select-keys
           :triggers #{::prompt-select-keys}
@@ -66,6 +58,7 @@
                             p (popup/popup!
                                (select-keys-popup key-infos))]
                         (.select2 (js/$ "#key-select"))
+                        (ctx/in! :popup.input.select2)
                         (object/add-behavior! p ::encrypt-with-given-keys)
                         (object/update! lt-pgp-obj [:encrypt-queue] conj ed))))
 
@@ -82,7 +75,6 @@
           :triggers #{:save+}
           :desc "PGP: Re-encrypt the file with the new contents on save"
           :reaction (fn [ed content]
-                      (def k ed)
                       (let [key-ids (get-in @ed [:lt-pgp :key-ids])
                             ks (clj->js (find-keys (.-keys keyring) key-ids))]
                         (if (zero? (count ks))
